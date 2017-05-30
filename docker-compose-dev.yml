@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+    php:
+        image: test/php
+        build: Docker/php
+        links:
+            - mysql
+            - redis
+        expose:
+            - 9000
+        volumes:
+            - ./:/var/www/test_t.test:rw
+        environment:
+            XDEBUG_CONFIG: remote_host=${XDEBUG_HOST}
+
+    nginx:
+        image: test/nginx
+        build: Docker/nginx
+        ports:
+            - "127.0.0.16:80:80"
+        links:
+            - php
+        volumes:
+            - ./:/var/www/test_t.test
+        expose:
+            - 80
+        domainname: test_t.test
+
+    mysql:
+        image: mysql:5.5
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test
+            MYSQL_USER: test
+            MYSQL_PASSWORD: test
+
+    redis:
+        image: redis:3.0
+        expose:
+            - 6379

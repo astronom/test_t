@@ -1,0 +1,15 @@
+index:
+    path: /
+    defaults: { _controller: "AppBundle:Front:index"}
+    methods: GET
+
+
+payment_a:
+    path: /payment_a
+    defaults: { _controller: "AppBundle:PaymentGateway:paymentA", _format: xml }
+    methods: GET
+
+payment_b:
+    path: /payment_b
+    defaults: { _controller: "AppBundle:PaymentGateway:paymentB" }
+    methods: POST

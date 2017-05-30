@@ -1,0 +1,9 @@
+AppBundle\Entity\User:
+    user{1..100}:
+        name: <firstname()> <lastname()>
+        balance: <randomFloat(2, 1, 200)>
+
+AppBundle\Entity\UserTransaction:
+    transaction{1..1000}:
+        amount: <randomFloat(2, 1, 200)>
+        user: '@user*'

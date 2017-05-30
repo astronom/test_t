@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Set environment variables for dev
+export XDEBUG_HOST=$(ifconfig wlp5s0 | awk '/inet addr/ {gsub("addr:", "", $2); print $2}')
+if [ "$XDEBUG_HOST" == "" ]; then
+    export XDEBUG_HOST=$(ip addr | grep 'state UP' -A2 | grep "inet " | head -n1 | awk '{print $2}' | cut -f1  -d'/')
+fi
+
+if [ $# -gt 0 ]; then
+    docker-compose -f docker-compose-dev.yml "$@"
+else
+    docker-compose -f docker-compose-dev.yml ps
+fi

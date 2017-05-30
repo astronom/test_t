@@ -1,0 +1,30 @@
+services:
+    app.services.payment_gateway.validator_a:
+        class: AppBundle\Services\PaymentGateway\PaymentValidator
+        arguments: ['%payment_a_salt%']
+
+    app.services.payment_gateway.validator_b:
+        class: AppBundle\Services\PaymentGateway\PaymentValidator
+        arguments: ['%payment_b_salt%']
+
+    app.services.payment_gateway.gateway:
+        class: AppBundle\Services\PaymentGateway\Gateway
+        arguments: ['@doctrine.orm.entity_manager', '@logger']
+        tags:
+              -  { name: monolog.logger, channel: gateway }
+
+    app.services.payment_gateway.builder.payment_a:
+        class: AppBundle\Services\PaymentGateway\PaymentABuilder
+        calls:
+            - [setRequest, ['@request_stack']]
+            - [setLogger, ['@logger']]
+        tags:
+              -  { name: monolog.logger, channel: gateway }
+
+    app.services.payment_gateway.builder.payment_b:
+        class: AppBundle\Services\PaymentGateway\PaymentBBuilder
+        calls:
+            - [setRequest, ['@request_stack']]
+            - [setLogger, ['@logger']]
+        tags:
+              -  { name: monolog.logger, channel: gateway }
