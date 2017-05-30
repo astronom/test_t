@@ -37,7 +37,7 @@ RUN usermod -u 1000 www-data
 # Copy source files
 COPY . /var/www/test_t.test
 
-WORKDIR /var/www/test_t.test./
+WORKDIR /var/www/test_t.test
 
 CMD ["php-fpm"]
 

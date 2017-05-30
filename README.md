@@ -1,6 +1,13 @@
 Тестовое задание
 ========================
-* 
+* Рабочее окружение Docker, можно запустить ./develop up -d --build
+  docker exec -it -u www-data testt_php_1 composer install
+
+* Для первоначальных данных был использован https://github.com/nelmio/alice
+
+* Логи платежей записываются в ./var/logs/gateway.log
+
+* Для доступа в mysql docker exec -it testt_mysql_1 mysql -proot
 
 Symfony Standard Edition
 ========================
